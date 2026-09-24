@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mixx5RP — Новый мультиплеер GTA V</title>
+    <style>
+        :root {
+            --primary-color: #00ff66;
+            --primary-hover: #00e65c;
+            --bg-dark: #070b09;
+            --bg-card: #0e1612;
+            --text-main: #ffffff;
+            --text-muted: #94a89d;
+            --border-color: #172d21;
+            --transition-smooth: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            --transition-fast: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Hero Section с правильным фоном Лос-Сантоса из GTA V */
+        .hero {
+            position: relative;
+            height: 100vh;
+            background: linear-gradient(180deg, rgba(7, 11, 9, 0.4) 0%, rgba(7, 11, 9, 0.88) 85%, var(--bg-dark) 100%), 
+                        url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.goodfon.ru%2Fwallpaper%2Fbig%2Fc%2Fba%2Fgta-5-los-santos-rokstar-gorod.webp&f=1&nofb=1&ipt=e4196c0b2c145043b9c354909330d182c529dc407eac4f60bf1f1e44d099c08b') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 40px 8%;
+            animation: bgZoom 25s infinite alternate;
+        }
+
+        @keyframes bgZoom {
+            0% { background-size: 100% auto; }
+            100% { background-size: 108% auto; }
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(-30px);
+            animation: fadeInDown 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards 0.3s;
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: 900;
+            color: var(--text-main);
+            letter-spacing: 3px;
+        }
+
+        .logo span {
+            color: var(--primary-color);
+            text-shadow: 0 0 20px rgba(0, 255, 102, 0.6);
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 35px;
+            font-weight: 600;
+            transition: var(--transition-fast);
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: var(--transition-fast);
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+            text-shadow: 0 0 12px rgba(0, 255, 102, 0.5);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .hero-content {
+            max-width: 750px;
+            margin-bottom: 90px;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1.4s cubic-bezier(0.25, 1, 0.5, 1) forwards 0.5s;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 255, 102, 0.1);
+            color: var(--primary-color);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            border: 1px solid rgba(0, 255, 102, 0.4);
+            margin-bottom: 25px;
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.15);
+            backdrop-filter: blur(5px);
+        }
+
+        .hero-content h1 {
+            font-size: 64px;
+            line-height: 1.05;
+            margin-bottom: 25px;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .hero-content h1 span {
+            color: var(--primary-color);
+            text-shadow: 0 0 30px rgba(0, 255, 102, 0.4);
+        }
+
+        .hero-content p {
+            font-size: 19px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #000;
+            padding: 18px 40px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 800;
+            text-decoration: none;
+            box-shadow: 0 0 30px rgba(0, 255, 102, 0.4);
+            transition: var(--transition-smooth);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 0 50px rgba(0, 255, 102, 0.7);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-main);
+            border: 2px solid var(--border-color);
+            margin-left: 15px;
+            box-shadow: none;
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 255, 102, 0.08);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            box-shadow: 0 0 25px rgba(0, 255, 102, 0.2);
+        }
+
+        /* Контейнеры и анимации скролла */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 40px;
+            font-weight: 900;
+            margin-bottom: 70px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title span {
+            color: var(--primary-color);
+            text-shadow: 0 0 20px rgba(0, 255, 102, 0.4);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+            margin-bottom: 120px;
+        }
+
+        .feature-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            border-radius: 16px;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 255, 102, 0.5);
+            box-shadow: 0 20px 50px rgba(0, 255, 102, 0.12);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 18px;
+            color: var(--text-main);
+            transition: var(--transition-fast);
+        }
+
+        .feature-card:hover h3 {
+            color: var(--primary-color);
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* Системные требования */
+        .specs-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 50px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            transition: var(--transition-smooth);
+        }
+
+        .specs-box:hover {
+            border-color: rgba(0, 255, 102, 0.4);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        @media (max-width: 768px) {
+            .specs-box {
+                grid-template-columns: 1fr;
+            }
+            .hero-content h1 {
+                font-size: 40px;
+            }
+        }
+
+        .specs-column h3 {
+            font-size: 26px;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .specs-list {
+            list-style: none;
+        }
+
+        .specs-list li {
+            margin-bottom: 18px;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed rgba(23, 45, 33, 0.8);
+            padding-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .specs-list li strong {
+            color: var(--text-main);
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(10px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--primary-color);
+            padding: 45px;
+            border-radius: 18px;
+            text-align: center;
+            max-width: 480px;
+            width: 90%;
+            box-shadow: 0 0 50px rgba(0, 255, 102, 0.35);
+            transform: scale(0.7) translateY(30px);
+            transition: var(--transition-smooth);
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-content h3 {
+            font-size: 26px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .modal-content p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .close-btn {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: var(--transition-fast);
+        }
+
+        .close-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            background: rgba(0, 255, 102, 0.08);
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.2);
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            font-size: 14px;
+        }
+
+        @keyframes fadeInDown {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <header>
+            <div class="logo">MIXX<span>5RP</span></div>
+            <nav>
+                <a href="#features">Особенности</a>
+                <a href="#specs">Системные требования</a>
+                <a href="#download" onclick="openModal(event)">Скачать</a>
+            </nav>
+        </header>
+
+        <div class="hero-content">
+            <div class="badge">Альфа-версия в разработке</div>
+            <h1>Новый мультиплеер <span>GTA V</span> без преград</h1>
+            <p>Добро пожаловать в Mixx5RP. Играй на кастомных серверах, управляй игровым миром прямо из чата и наслаждайся стабильной синхронизацией.</p>
+            <div>
+                <a href="#download" class="btn" onclick="openModal(event)">Скачать Лаунчер</a>
+                <a href="#features" class="btn btn-secondary">Узнать больше</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div id="features" class="reveal">
+            <h2 class="section-title">Почему именно <span>Mixx5RP</span>?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>⚡ Автономный запуск</h3>
+                    <p>Не требуется официальная лицензия Steam или Epic Games. Лаунчер автоматически подготовит все необходимые файлы для игры.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎮 Быстрые рестарты</h3>
+                    <p>Уникальная система управления сервером: администраторы могут запускать обновления и хот-рестарты прямо через внутриигровой чат.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🛡️ Продвинутая защита</h3>
+                    <p>Собственный античит-модуль и оптимизированная сетевая синхронизация гарантируют комфортную игру без лагов и читеров.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="specs" class="reveal">
+            <h2 class="section-title">Системные <span>требования</span></h2>
+            <div class="specs-box">
+                <div class="specs-column">
+                    <h3>Минимальные</h3>
+                    <ul class="specs-list">
+                        <li><span>ОС:</span> <strong>Windows 10 (64-bit)</strong></li>
+                        <li><span>Процессор:</span> <strong>Intel Core i5-3470 / AMD FX-8350</strong></li>
+                        <li><span>Оперативная память:</span> <strong>8 ГБ ОЗУ</strong></li>
+                        <li><span>Видеокарта:</span> <strong>NVIDIA GTX 660 / AMD HD 7870 (2GB)</strong></li>
+                        <li><span>Место на диске:</span> <strong>110 ГБ</strong></li>
+                    </ul>
+                </div>
+                <div class="specs-column">
+                    <h3>Рекомендуемые</h3>
+                    <ul class="specs-list">
+                        <li><span>ОС:</span> <strong>Windows 10 / 11 (64-bit)</strong></li>
+                        <li><span>Процессор:</span> <strong>Intel Core i5-8400 / AMD Ryzen 5 2600</strong></li>
+                        <li><span>Оперативная память:</span> <strong>16 ГБ ОЗУ</strong></li>
+                        <li><span>Видеокарта:</span> <strong>NVIDIA GTX 1060 / AMD RX 580 (4GB)</strong></li>
+                        <li><span>Место на диске:</span> <strong>110 ГБ (SSD)</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно -->
+    <div class="modal" id="downloadModal">
+        <div class="modal-content">
+            <h3>Лаунчер в разработке</h3>
+            <p>Мультиплеер Mixx5RP находится на этапе активного проектирования. Кнопка скачивания заработает сразу после релиза первой альфа-версии!</p>
+            <button class="close-btn" onclick="closeModal()">Понятно</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Mixx5RP Project. Все права защищены. Не аффилировано с Rockstar Games.</p>
+    </footer>
+
+    <script>
+        function handleScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 100;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('load', handleScroll);
+
+        function openModal(e) {
+            e.preventDefault();
+            const modal = document.getElementById('downloadModal');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('show'), 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('downloadModal');
+            modal.classList.remove('show');
+            setTimeout(() => modal.style.display = 'none', 400);
+        }
+
+        window.onclick = function(event) {
+            let modal = document.getElementById('downloadModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
